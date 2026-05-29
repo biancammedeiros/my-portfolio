@@ -10,18 +10,22 @@
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,400;1,9..144,500&family=Hanken+Grotesk:wght@400;500;600;700;800&family=Spline+Sans+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
 :root{
-  --paper:#F4EFE6; --paper-2:#EBE3D4; --paper-3:#E2D8C5;
-  --ink:#1B1A16; --ink-2:#55503F; --ink-3:#7C7560;
-  --forest:#1F3D2E; --forest-2:#2C5640; --forest-soft:#3B6B4E;
-  --clay:#BD623E; --clay-2:#D5895F;
-  --sage:#7E9270;
-  --line:rgba(27,26,22,.14); --line-2:rgba(27,26,22,.08);
-  --shadow:0 1px 2px rgba(27,26,22,.04),0 10px 30px -12px rgba(27,26,22,.18);
-  --shadow-lg:0 2px 4px rgba(27,26,22,.05),0 30px 60px -22px rgba(27,26,22,.32);
+  /* neutros frios */
+  --paper:#EDF3F1; --paper-2:#E0E9E7; --paper-3:#D1DDDB;
+  --ink:#102220; --ink-2:#3E524E; --ink-3:#6B7D79;
+  /* verde — cor principal */
+  --forest:#16463A; --forest-2:#1F6151; --forest-soft:#2E7E66;
+  /* azul — destaque (mantive os nomes --clay p/ não mexer no resto do CSS) */
+  --clay:#2C6CB0; --clay-2:#5E9BD6;
+  /* verde-azulado de apoio */
+  --sage:#5C8C8A;
+  --line:rgba(16,34,32,.14); --line-2:rgba(16,34,32,.08);
+  --shadow:0 1px 2px rgba(16,34,32,.04),0 10px 30px -12px rgba(16,34,32,.18);
+  --shadow-lg:0 2px 4px rgba(16,34,32,.05),0 30px 60px -22px rgba(16,34,32,.32);
   --r:18px;
-  --display:"Fraunces",Georgia,serif;
-  --body:"Hanken Grotesk",system-ui,sans-serif;
-  --mono:"Spline Sans Mono",monospace;
+  --display: "Lora", "PT Serif", serif;
+  --body: "Inter", "Plus Jakarta Sans", system-ui, sans-serif;
+  --mono: "Fira Mono", monospace;
 }
 *{margin:0;padding:0;box-sizing:border-box}
 html{scroll-behavior:smooth}
@@ -62,8 +66,8 @@ nav.scrolled{background:rgba(244,239,230,.82);backdrop-filter:blur(14px);border-
 .hero{position:relative;padding:148px 0 70px;overflow:hidden}
 .hero-bg{position:absolute;inset:0;z-index:0;pointer-events:none}
 .blob{position:absolute;border-radius:50%;filter:blur(60px);opacity:.5}
-.blob.a{width:520px;height:520px;background:radial-gradient(circle,#cfe0c8,transparent 70%);top:-160px;right:-120px}
-.blob.b{width:440px;height:440px;background:radial-gradient(circle,#e8c3ac,transparent 70%);bottom:-180px;left:-140px;opacity:.4}
+.blob.a{width:520px;height:520px;background:radial-gradient(circle,#c9e2d6,transparent 70%);top:-160px;right:-120px}
+.blob.b{width:440px;height:440px;background:radial-gradient(circle,#bcd6ee,transparent 70%);bottom:-180px;left:-140px;opacity:.4}
 .hero-grid{position:relative;z-index:2;display:grid;grid-template-columns:1.45fr .9fr;gap:54px;align-items:center}
 .hero h1{font-size:clamp(3.1rem,8vw,6rem);margin:18px 0 0;letter-spacing:-.03em}
 .hero h1 .it{font-style:italic;font-weight:400;color:var(--forest)}
@@ -120,19 +124,55 @@ section{position:relative}
 
 /* ---------- PROCESS ---------- */
 .proc-note{display:inline-flex;align-items:center;gap:.6em;font-family:var(--mono);font-size:.78rem;color:var(--forest-soft);background:rgba(59,107,78,.1);border:1px solid rgba(59,107,78,.2);padding:8px 16px;border-radius:50px;margin-top:22px}
-.steps{margin-top:54px;position:relative}
-.spine{position:absolute;left:31px;top:14px;bottom:14px;width:2px;background:repeating-linear-gradient(var(--forest-soft) 0 6px,transparent 6px 12px);opacity:.4}
-.step{display:grid;grid-template-columns:64px 1fr;gap:26px;padding-bottom:42px;position:relative}
-.step:last-child{padding-bottom:0}
-.step-num{width:64px;height:64px;border-radius:50%;background:var(--paper);border:2px solid var(--forest);display:flex;align-items:center;justify-content:center;font-family:var(--display);font-weight:600;font-size:1.4rem;color:var(--forest);position:relative;z-index:2;transition:.3s}
-.step.in .step-num{animation:pop .5s ease both}
 @keyframes pop{0%{transform:scale(.6);opacity:0}60%{transform:scale(1.08)}100%{transform:scale(1);opacity:1}}
-.step:hover .step-num{background:var(--forest);color:var(--paper);transform:scale(1.06)}
-.step-body{padding-top:6px}
-.step-body h3{font-size:1.5rem;font-weight:600;margin-bottom:8px}
-.step-body h3 .ph{font-family:var(--mono);font-size:.7rem;color:var(--clay);letter-spacing:.12em;text-transform:uppercase;display:block;margin-bottom:6px;font-weight:500}
-.step-body p{color:var(--ink-2);max-width:64ch;margin-bottom:12px}
+.steps-wrap{margin-top:54px;position:relative}
+.steps{
+  display:flex; gap:22px; overflow-x:auto;
+  scroll-snap-type:x proximity; scroll-padding-left:4px;
+  scroll-behavior:smooth; -webkit-overflow-scrolling:touch;
+  padding:8px 4px 22px;
+}
+.steps::-webkit-scrollbar{height:6px}
+.steps::-webkit-scrollbar-track{background:var(--line-2);border-radius:50px}
+.steps::-webkit-scrollbar-thumb{background:var(--forest-soft);border-radius:50px}
+.steps{scrollbar-width:thin;scrollbar-color:var(--forest-soft) var(--line-2)}
+
+.step{
+  flex:0 0 320px; scroll-snap-align:start; position:relative;
+  background:var(--paper); border:1px solid var(--line); border-radius:18px;
+  padding:26px 24px; transition:transform .3s, box-shadow .3s, border-color .3s;
+}
+.step:hover{transform:translateY(-6px); box-shadow:var(--shadow); border-color:var(--forest-soft)}
+.step .tag{background:var(--paper-2)}
+
+.step:not(:last-child)::after{
+  content:"›"; position:absolute; top:56px; right:-19px; transform:translateY(-50%);
+  font-family:var(--mono); font-size:1.5rem; color:var(--forest-soft); opacity:.55; z-index:3;
+}
+
+.step-num{
+  width:60px;height:60px;border-radius:50%;
+  background:var(--paper); border:2px solid var(--forest);
+  display:flex;align-items:center;justify-content:center;
+  font-family:var(--display);font-weight:600;font-size:1.3rem;color:var(--forest);
+  margin-bottom:20px; position:relative; z-index:2; transition:.3s;
+}
+.step.in .step-num{animation:pop .5s ease both}
+.step:hover .step-num{background:var(--forest);color:var(--paper)}
+
+.step-body h3{font-size:1.3rem;font-weight:600;margin-bottom:8px}
+.step-body h3 .ph{font-family:var(--mono);font-size:.68rem;color:var(--clay);letter-spacing:.12em;text-transform:uppercase;display:block;margin-bottom:6px;font-weight:500}
+.step-body p{color:var(--ink-2);margin-bottom:14px;font-size:.95rem}
 .step-tags{display:flex;flex-wrap:wrap;gap:8px}
+
+.steps-nav{display:flex;gap:10px;justify-content:flex-end;margin-top:8px}
+.steps-btn{
+  width:44px;height:44px;border-radius:50%;
+  border:1.5px solid var(--ink); background:transparent; color:var(--ink);
+  font-size:1.3rem; cursor:pointer; display:flex;align-items:center;justify-content:center;
+  transition:.25s;
+}
+.steps-btn:hover{background:var(--forest); border-color:var(--forest); color:var(--paper)}
 .tag{font-family:var(--mono);font-size:.72rem;letter-spacing:.02em;background:var(--paper-2);border:1px solid var(--line);color:var(--ink-2);padding:5px 12px;border-radius:50px}
 .about .tag,.proc .tag{background:var(--paper)}
 
@@ -144,18 +184,18 @@ section{position:relative}
 .project{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center;padding:60px 0;border-top:1px solid rgba(244,239,230,.12)}
 .project:nth-child(even) .project-media{order:2}
 .project-media{position:relative}
-.browser{border-radius:14px;overflow:hidden;border:1px solid rgba(244,239,230,.16);background:#26251f;box-shadow:0 30px 60px -25px rgba(0,0,0,.6);transition:.4s}
+.browser{border-radius:14px;overflow:hidden;border:1px solid rgba(244,239,230,.16);background:#15201E;box-shadow:0 30px 60px -25px rgba(0,0,0,.6);transition:.4s}
 .project:hover .browser{transform:translateY(-6px)}
-.browser-bar{display:flex;align-items:center;gap:6px;padding:10px 14px;background:#2d2c25;border-bottom:1px solid rgba(244,239,230,.1)}
-.browser-bar span{width:10px;height:10px;border-radius:50%;background:#4a4940}
+.browser-bar{display:flex;align-items:center;gap:6px;padding:10px 14px;background:#1E2C28;border-bottom:1px solid rgba(244,239,230,.1)}
+.browser-bar span{width:10px;height:10px;border-radius:50%;background:#3C4B47}
 .browser-bar .url{margin-left:12px;font-family:var(--mono);font-size:.68rem;color:rgba(244,239,230,.4);letter-spacing:.02em}
 .browser-screens{display:flex;gap:0}
 .browser-screens img{flex:1;width:100%;object-fit:cover;object-position:top;max-height:380px}
 .browser-screens.tall img{max-height:440px}
 .browser-screens.two img{max-height:360px}
-.mobile-browser{border-radius:24px;overflow:hidden;border:1px solid rgba(244,239,230,.16);background:#26251f;box-shadow:0 30px 60px -25px rgba(0,0,0,.6);transition:.4s;max-width:300px;margin:0 auto}
+.mobile-browser{border-radius:24px;overflow:hidden;border:1px solid rgba(244,239,230,.16);background:#15201E;box-shadow:0 30px 60px -25px rgba(0,0,0,.6);transition:.4s;max-width:300px;margin:0 auto}
 .project:hover .mobile-browser{transform:translateY(-6px)}
-.mobile-browser-bar{display:flex;align-items:center;justify-content:center;padding:12px 16px;background:#2d2c25;border-bottom:1px solid rgba(244,239,230,.1)}
+.mobile-browser-bar{display:flex;align-items:center;justify-content:center;padding:12px 16px;background:#1E2C28;border-bottom:1px solid rgba(244,239,230,.1)}
 .mobile-browser-bar .url{font-family:var(--mono);font-size:.65rem;color:rgba(244,239,230,.4);letter-spacing:.02em;background:rgba(0,0,0,.2);padding:6px 16px;border-radius:12px;width:80%;text-align:center;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .mobile-screens{display:flex;flex-direction:column;gap:0}
 .mobile-screens img{width:100%;object-fit:cover;object-position:top;max-height:540px}
@@ -245,6 +285,7 @@ footer{background:var(--ink);color:rgba(244,239,230,.6);padding:34px 0;font-fami
   .exp-when{padding-top:0}
   .contact-grid{grid-template-columns:1fr}
 }
+
 @media(max-width:680px){
   body{font-size:16px}
   .nav-links{display:none}
@@ -252,9 +293,7 @@ footer{background:var(--ink);color:rgba(244,239,230,.6);padding:34px 0;font-fami
   .stat:nth-child(2){border-right:none}
   .stat{border-bottom:1px solid var(--line)}
   .stat:nth-child(3),.stat:nth-child(4){border-bottom:none}
-  .step{grid-template-columns:48px 1fr;gap:18px}
-  .step-num{width:48px;height:48px;font-size:1.1rem}
-  .spine{left:23px}
+  .step{flex-basis:82%}
   .nda{flex-direction:column;align-items:flex-start}
   .wrap{padding:0 20px}
   .nav-inner{padding:14px 20px}
@@ -318,12 +357,6 @@ footer{background:var(--ink);color:rgba(244,239,230,.6);padding:34px 0;font-fami
         <p>Tenho experiência sólida criando protótipos e fluxos de usuário no Figma para aplicações web e mobile, participando ativamente desde o Product Discovery até a entrega final. Meu diferencial é a base técnica: uso meu conhecimento de desenvolvimento para garantir a viabilidade dos projetos e construir um handoff que os times de desenvolvimento realmente conseguem implementar.</p>
         <p>Aplico metodologias ágeis no dia a dia para transformar requisitos complexos em interfaces visuais claras e acessíveis — e trago bagagem de ensino, comunicação visual e inclusão digital que me ajuda a manter as pessoas no centro de cada decisão.</p>
       </div>
-      <div class="values">
-        <div class="value reveal"><span class="vn">01</span><h4>Inovação</h4><p>Explorar caminhos novos sem perder de vista o problema real do usuário.</p></div>
-        <div class="value reveal d1"><span class="vn">02</span><h4>Acessibilidade</h4><p>Interfaces que funcionam para todo mundo — inclusão é requisito, não extra.</p></div>
-        <div class="value reveal d2"><span class="vn">03</span><h4>Colaboração</h4><p>Alinhamento próximo com produto e desenvolvimento em cada etapa.</p></div>
-        <div class="value reveal d3"><span class="vn">04</span><h4>Impacto positivo</h4><p>Design a serviço de resultados e de experiências que valem a pena.</p></div>
-      </div>
     </div>
   </div>
 </section>
@@ -336,38 +369,44 @@ footer{background:var(--ink);color:rgba(244,239,230,.6);padding:34px 0;font-fami
       <p>Um processo end-to-end, conduzido em ciclos ágeis. Cada etapa é colaborativa — produto, usuários e desenvolvimento caminham juntos do início ao fim.</p>
       <span class="proc-note">◇ Iterativo e ágil em todas as fases</span>
     </div>
-    <div class="steps">
-      <div class="spine"></div>
-      <div class="step reveal"><div class="step-num">01</div><div class="step-body">
-        <h3><span class="ph">Discovery</span>Pesquisa &amp; entendimento do problema</h3>
-        <p>Mergulho no contexto: converso com stakeholders, levanto e modelo requisitos, mapeio dores e objetivos de negócio. Antes de desenhar telas, entendo qual é o problema certo a resolver.</p>
-        <div class="step-tags"><span class="tag">Levantamento de requisitos</span><span class="tag">Stakeholders</span><span class="tag">Jornadas de usuário</span></div>
-      </div></div>
-      <div class="step reveal"><div class="step-num">02</div><div class="step-body">
-        <h3><span class="ph">Arquitetura</span>Estrutura &amp; fluxos de navegação</h3>
-        <p>Organizo a informação e desenho os fluxos do sistema, traduzindo regras de negócio em caminhos intuitivos. É aqui que a lógica do produto ganha forma navegável.</p>
-        <div class="step-tags"><span class="tag">Arquitetura de informação</span><span class="tag">Fluxos</span><span class="tag">Mapa de navegação</span></div>
-      </div></div>
-      <div class="step reveal"><div class="step-num">03</div><div class="step-body">
-        <h3><span class="ph">Concepção</span>Wireframes &amp; exploração</h3>
-        <p>Esboço em baixa fidelidade para validar estrutura e prioridades rápido — testando hipóteses de layout e hierarquia antes de investir em UI refinada.</p>
-        <div class="step-tags"><span class="tag">Wireframing</span><span class="tag">Design Thinking</span><span class="tag">Hierarquia visual</span></div>
-      </div></div>
-      <div class="step reveal"><div class="step-num">04</div><div class="step-body">
-        <h3><span class="ph">UI &amp; Protótipo</span>Alta fidelidade no Figma</h3>
-        <p>Construo interfaces multiplataforma (web &amp; mobile) com base em Design System — componentes consistentes, responsivos e protótipos navegáveis que comunicam a experiência real.</p>
-        <div class="step-tags"><span class="tag">Figma</span><span class="tag">Design System</span><span class="tag">Prototipagem</span><span class="tag">Responsivo</span></div>
-      </div></div>
-      <div class="step reveal"><div class="step-num">05</div><div class="step-body">
-        <h3><span class="ph">Handoff</span>Documentação &amp; viabilidade técnica</h3>
-        <p>Preparo specs detalhadas e alinho diretamente com o time de desenvolvimento para validar a viabilidade e garantir fidelidade na implementação — minha base de dev faz a ponte entre design e código.</p>
-        <div class="step-tags"><span class="tag">Handoff</span><span class="tag">Documentação técnica</span><span class="tag">Padronização</span></div>
-      </div></div>
-      <div class="step reveal"><div class="step-num">06</div><div class="step-body">
-        <h3><span class="ph">Entrega</span>Implementação &amp; acompanhamento</h3>
-        <p>Acompanho (e quando preciso, codifico) a implementação em Flutter / HTML / CSS, validando a experiência no produto final e iterando com base no que aparece na prática.</p>
-        <div class="step-tags"><span class="tag">Flutter</span><span class="tag">Front-end</span><span class="tag">QA visual</span><span class="tag">Iteração</span></div>
-      </div></div>
+
+    <div class="steps-wrap reveal">
+      <div class="steps" id="procTrack">
+        <div class="step"><div class="step-num">01</div><div class="step-body">
+          <h3><span class="ph">Discovery</span>Pesquisa &amp; entendimento do problema</h3>
+          <p>Mergulho no contexto: converso com stakeholders, levanto e modelo requisitos, mapeio dores e objetivos de negócio. Antes de desenhar telas, entendo qual é o problema certo a resolver.</p>
+          <div class="step-tags"><span class="tag">Levantamento de requisitos</span><span class="tag">Stakeholders</span><span class="tag">Jornadas de usuário</span></div>
+        </div></div>
+        <div class="step"><div class="step-num">02</div><div class="step-body">
+          <h3><span class="ph">Arquitetura</span>Estrutura &amp; fluxos de navegação</h3>
+          <p>Organizo a informação e desenho os fluxos do sistema, traduzindo regras de negócio em caminhos intuitivos. É aqui que a lógica do produto ganha forma navegável.</p>
+          <div class="step-tags"><span class="tag">Arquitetura de informação</span><span class="tag">Fluxos</span><span class="tag">Mapa de navegação</span></div>
+        </div></div>
+        <div class="step"><div class="step-num">03</div><div class="step-body">
+          <h3><span class="ph">Concepção</span>Wireframes &amp; exploração</h3>
+          <p>Esboço em baixa fidelidade para validar estrutura e prioridades rápido — testando hipóteses de layout e hierarquia antes de investir em UI refinada.</p>
+          <div class="step-tags"><span class="tag">Wireframing</span><span class="tag">Design Thinking</span><span class="tag">Hierarquia visual</span></div>
+        </div></div>
+        <div class="step"><div class="step-num">04</div><div class="step-body">
+          <h3><span class="ph">UI &amp; Protótipo</span>Alta fidelidade no Figma</h3>
+          <p>Construo interfaces multiplataforma (web &amp; mobile) com base em Design System — componentes consistentes, responsivos e protótipos navegáveis que comunicam a experiência real.</p>
+          <div class="step-tags"><span class="tag">Figma</span><span class="tag">Design System</span><span class="tag">Prototipagem</span><span class="tag">Responsivo</span></div>
+        </div></div>
+        <div class="step"><div class="step-num">05</div><div class="step-body">
+          <h3><span class="ph">Handoff</span>Documentação &amp; viabilidade técnica</h3>
+          <p>Preparo specs detalhadas e alinho diretamente com o time de desenvolvimento para validar a viabilidade e garantir fidelidade na implementação — minha base de dev faz a ponte entre design e código.</p>
+          <div class="step-tags"><span class="tag">Handoff</span><span class="tag">Documentação técnica</span><span class="tag">Padronização</span></div>
+        </div></div>
+        <div class="step"><div class="step-num">06</div><div class="step-body">
+          <h3><span class="ph">Entrega</span>Implementação &amp; acompanhamento</h3>
+          <p>Acompanho (e quando preciso, codifico) a implementação em Flutter / HTML / CSS, validando a experiência no produto final e iterando com base no que aparece na prática.</p>
+          <div class="step-tags"><span class="tag">Flutter</span><span class="tag">Front-end</span><span class="tag">QA visual</span><span class="tag">Iteração</span></div>
+        </div></div>
+      </div>
+      <div class="steps-nav">
+        <button class="steps-btn" data-dir="-1" aria-label="Etapa anterior">‹</button>
+        <button class="steps-btn" data-dir="1" aria-label="Próxima etapa">›</button>
+      </div>
     </div>
   </div>
 </section>
@@ -484,10 +523,10 @@ footer{background:var(--ink);color:rgba(244,239,230,.6);padding:34px 0;font-fami
       <div class="project-info">
         <span class="pk">Aplicativo · Energia</span>
         <h3> App — MaisCarga Mobile</h3>
-        <div class="pmeta">Banco de Kwh · Identidade &amp; landing editorial</div>
-        <p>Desenvolvimento de um aplicativo móvel para gerenciamento de energia, focado na criação de um "Banco de Kwh". A interface intuitiva e a experiência do usuário foram projetadas para facilitar o controle e a otimização do consumo de energia, promovendo a sustentabilidade e a economia.</p>
+        <div class="pmeta">Banco de kWh · Identidade &amp; landing editorial</div>
+        <p>Desenvolvimento de um aplicativo móvel para gerenciamento de energia, focado na criação de um "Banco de kWh". A interface intuitiva e a experiência do usuário foram projetadas para facilitar o controle e a otimização do consumo de energia, promovendo a sustentabilidade e a economia.</p>
         <ul class="contrib">
-          <li>Concepção e design da experiência do usuário (UX) para o Banco de Kwh</li>
+          <li>Concepção e design da experiência do usuário (UX) para o Banco de kWh</li>
           <li>Desenvolvimento da identidade visual e elementos de interface (UI)</li>
         </ul>
         <div class="work-tags"><span class="tag">Aplicativo Mobile</span><span class="tag">Gestão de Energia</span><span class="tag">UX/UI Design</span></div>
@@ -568,19 +607,19 @@ footer{background:var(--ink);color:rgba(244,239,230,.6);padding:34px 0;font-fami
     <p class="sub reveal d2">Estou em busca de oportunidades como Product Designer. Se o que você viu faz sentido pro seu time, adoraria conversar.</p>
     <div class="contact-grid">
       <a href="mailto:biancamedeiroswork@gmail.com" class="cc reveal">
-        <span class="cic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#D5895F" stroke-width="1.7"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg></span>
+        <span class="cic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#FFFF" stroke-width="1.7"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg></span>
         <span><span class="cl">E-mail</span><span class="cv">biancamedeiroswork@gmail.com</span></span>
       </a>
       <a href="tel:+5584998128499" class="cc reveal d1">
-        <span class="cic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#D5895F" stroke-width="1.7"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92Z"/></svg></span>
+        <span class="cic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#FFFF" stroke-width="1.7"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92Z"/></svg></span>
         <span><span class="cl">Telefone</span><span class="cv">(84) 9 9812-8499</span></span>
       </a>
       <a href="https://www.linkedin.com/in/bianca-medeiros-76063028b/" target="_blank" rel="noopener" class="cc reveal d2">
-        <span class="cic"><svg width="20" height="20" viewBox="0 0 24 24" fill="#D5895F"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14zM8.34 18.34V9.99H5.67v8.35h2.67zM7 8.8a1.55 1.55 0 1 0 0-3.1 1.55 1.55 0 0 0 0 3.1zm11.34 9.54v-4.57c0-2.45-1.31-3.59-3.06-3.59-1.41 0-2.04.78-2.39 1.32v-1.13h-2.67c.04.75 0 8.35 0 8.35h2.67v-4.66c0-.24.02-.48.09-.65.19-.48.63-.97 1.37-.97.97 0 1.36.74 1.36 1.82v4.46h2.67z"/></svg></span>
+        <span class="cic"><svg width="20" height="20" viewBox="0 0 24 24" fill="#FFFF"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14zM8.34 18.34V9.99H5.67v8.35h2.67zM7 8.8a1.55 1.55 0 1 0 0-3.1 1.55 1.55 0 0 0 0 3.1zm11.34 9.54v-4.57c0-2.45-1.31-3.59-3.06-3.59-1.41 0-2.04.78-2.39 1.32v-1.13h-2.67c.04.75 0 8.35 0 8.35h2.67v-4.66c0-.24.02-.48.09-.65.19-.48.63-.97 1.37-.97.97 0 1.36.74 1.36 1.82v4.46h2.67z"/></svg></span>
         <span><span class="cl">LinkedIn</span><span class="cv">/in/bianca-medeiros</span></span>
       </a>
       <div class="cc reveal d3">
-        <span class="cic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#D5895F" stroke-width="1.7"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg></span>
+        <span class="cic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#FFFF" stroke-width="1.7"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg></span>
         <span><span class="cl">Localização</span><span class="cv">Natal · RN · Brasil</span></span>
       </div>
     </div>
@@ -602,6 +641,14 @@ addEventListener('scroll',()=>nav.classList.toggle('scrolled',scrollY>40));
 // reveal on scroll
 const io=new IntersectionObserver((es)=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}})},{threshold:.12,rootMargin:'0px 0px -8% 0px'});
 document.querySelectorAll('.reveal,.step').forEach(el=>io.observe(el));
+
+document.querySelectorAll('.steps-btn').forEach(btn=>{
+  btn.addEventListener('click',()=>{
+    const track=document.getElementById('procTrack');
+    const card=track.querySelector('.step');
+    track.scrollBy({left:Number(btn.dataset.dir)*(card.offsetWidth+22),behavior:'smooth'});
+  });
+});
 </script>
 </body>
 </html>
