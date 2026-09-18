@@ -1,0 +1,223 @@
+@import 'tailwindcss';
+
+/* Fontes auto-hospedadas - sem requisição ao Google Fonts. */
+@import '@fontsource/londrina-solid/400.css';
+@import '@fontsource/londrina-solid/900.css';
+@import '@fontsource-variable/montserrat';
+@import '@fontsource-variable/lora';
+@import '@fontsource-variable/inter';
+
+/* Tokens extraídos do Figma "Portfolio" (nós 15:633 e 15:1204). */
+@theme {
+  --color-mata: #2e7e66; /* verde de fundo da página e do nav */
+  --color-adesivo: #1e8767; /* corpo dos adesivos, um tom abaixo do fundo */
+  --color-creme: #fafbf4; /* texto principal e borda dos adesivos */
+  --color-creme-suave: #edf3f1; /* texto dentro do botão escuro */
+  --color-pinheiro: #16463a; /* "Medeiros", botão primário e seção de projetos */
+  --color-breu: #102220; /* logo, destaque em itálico e rodapé */
+  --color-menta: #8ddfc6; /* acento sobre os fundos escuros */
+  --color-linho: #f4efe6; /* creme quente, usado com opacidade sobre escuro */
+  --color-grafite: #3e524e; /* texto de apoio sobre fundo claro */
+  --color-cinza: #6b7d79; /* datas e legendas */
+  --color-nevoa: #e0e9e7; /* chips e cards de formação */
+  --color-pedra: #5c8c8a; /* ícone do terceiro card de competências */
+  --color-linha: rgb(16 34 32 / 0.14); /* divisórias sobre fundo claro */
+  --color-mockup: #15201e; /* corpo do mockup de navegador */
+  --color-mockup-barra: #1e2c28; /* barra de título do mockup */
+  --color-mockup-ponto: #3c4b47; /* os três pontinhos */
+
+  --font-display: 'Londrina Solid', 'Arial Black', sans-serif;
+  --font-titulo: 'Montserrat Variable', 'Montserrat', system-ui, sans-serif;
+  --font-serif: 'Lora Variable', 'Lora', Georgia, serif;
+  --font-corpo: 'Inter Variable', 'Inter', system-ui, sans-serif;
+}
+
+@layer base {
+  body {
+    background: var(--color-mata);
+    color: var(--color-creme);
+    font-family: var(--font-corpo);
+    margin: 0;
+    -webkit-font-smoothing: antialiased;
+  }
+}
+
+/* ==========================================================================
+   ADESIVOS
+   Sem base de papel: o SVG é o adesivo. No hover ele levanta, inclina e ganha
+   sombra - como a sombra é um `drop-shadow` aplicado ao próprio SVG, ela segue
+   o contorno do desenho em vez de desenhar um retângulo em volta.
+   ========================================================================== */
+
+.palco-adesivos {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  /* A camada não intercepta cliques; só os adesivos dentro dela interceptam. */
+  pointer-events: none;
+  /* Piso de tamanho: no mobile a porcentagem do desenho daria ~30px, pequeno
+     demais para o rabisco ser reconhecível. */
+  --min-adesivo: 56px;
+}
+
+@media (min-width: 1024px) {
+  .palco-adesivos {
+    --min-adesivo: 30px;
+  }
+}
+
+.adesivo {
+  position: absolute;
+  width: max(var(--min-adesivo, 30px), var(--pct));
+  /* Abaixo de lg vale a posição de mobile quando existir; o media query
+     adiante devolve a posição do desenho. */
+  left: var(--mx, var(--x));
+  top: var(--my, var(--y));
+  transform: translate(-50%, -50%) translate(var(--dx, 0px), var(--dy, 0px));
+  pointer-events: auto;
+  cursor: grab;
+  /* Impede que arrastar o adesivo role a página no toque. */
+  touch-action: none;
+}
+
+.adesivo[data-arrastando='true'] {
+  cursor: grabbing;
+}
+
+/*
+  Abaixo de 1024px o layout vira coluna única e as coordenadas do Figma deixam
+  de ter faixa de margem - qualquer adesivo cai sobre o texto. Então lá só
+  sobrevivem os marcados como `mobile`, que são três, posicionados na faixa
+  reservada no topo do hero. O Sobre e o Contato não têm nenhum marcado, e suas
+  camadas ficam vazias.
+*/
+.adesivo:not(.adesivo--mobile) {
+  display: none;
+}
+
+@media (min-width: 1024px) {
+  /* Mesmo seletor do `display: none` acima: com só `.adesivo` a
+     especificidade era menor e a regra não vencia nem dentro do media query. */
+  .adesivo:not(.adesivo--mobile) {
+    display: block;
+  }
+
+  .adesivo {
+    left: var(--x);
+    top: var(--y);
+  }
+}
+
+/* Não arrasta em telas de toque: 26 alvos com touch-action:none atrapalhariam
+   a rolagem. Lá os adesivos ficam só como enfeite. */
+@media (pointer: coarse) {
+  .adesivo {
+    pointer-events: none;
+  }
+}
+
+.adesivo__arte {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  /* Sombra zerada em repouso, para a transição sair do nada suavemente. */
+  filter: drop-shadow(0 0 0 rgb(0 0 0 / 0));
+  transition:
+    transform 320ms cubic-bezier(0.22, 1, 0.36, 1),
+    filter 320ms ease;
+  -webkit-user-drag: none;
+  user-select: none;
+}
+
+.adesivo:hover .adesivo__arte {
+  transform: translateY(-8px) rotate(var(--giro, -3deg)) scale(1.06);
+  filter: drop-shadow(0 11px 9px rgb(0 0 0 / 0.3));
+}
+
+.adesivo[data-arrastando='true'] .adesivo__arte {
+  transform: translateY(-13px) rotate(calc(var(--giro, -3deg) * 1.7)) scale(1.1);
+  filter: drop-shadow(0 20px 15px rgb(0 0 0 / 0.36));
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .adesivo__arte {
+    transition: none;
+  }
+
+  .adesivo:hover .adesivo__arte {
+    transform: none;
+    filter: drop-shadow(0 6px 6px rgb(0 0 0 / 0.25));
+  }
+}
+
+/* ==========================================================================
+   FAIXA DE LOGOS
+   Duas cópias da lista correndo lado a lado: quando a primeira sai de cena a
+   segunda já ocupou o lugar, então o laço não tem emenda visível. A animação
+   move -50% porque a pista tem exatamente o dobro do conteúdo.
+   ========================================================================== */
+
+@keyframes correr-faixa {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.faixa {
+  overflow: hidden;
+  /* Esmaece as pontas para os logos entrarem e saírem sem corte seco. */
+  mask-image: linear-gradient(
+    to right,
+    transparent,
+    black 8%,
+    black 92%,
+    transparent
+  );
+}
+
+.faixa__pista {
+  display: flex;
+  width: max-content;
+  animation: correr-faixa var(--duracao, 38s) linear infinite;
+}
+
+.faixa:hover .faixa__pista {
+  animation-play-state: paused;
+}
+
+.faixa__grupo {
+  display: flex;
+  align-items: center;
+  flex: none;
+  gap: clamp(36px, 4vw, 72px);
+  padding-inline: clamp(18px, 2vw, 36px);
+}
+
+.faixa__logo {
+  display: block;
+  flex: none;
+  /* Teto nas duas dimensões: o navegador encaixa cada logo preservando a
+     proporção, então wordmarks compridos travam na largura e logos quadrados
+     travam na altura - sem nenhum ficar desproporcional em relação aos outros. */
+  width: auto;
+  height: auto;
+  max-height: clamp(30px, 2.4vw, 46px);
+  max-width: clamp(104px, 8.5vw, 162px);
+  opacity: 0.85;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .faixa__pista {
+    animation: none;
+  }
+
+  /* Sem movimento a pista dobrada não faz sentido: vira rolagem manual. */
+  .faixa {
+    overflow-x: auto;
+    mask-image: none;
+  }
+}
