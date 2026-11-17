@@ -42,7 +42,7 @@ export const adesivosHero: Adesivo[] = [
   { n: 2, x: 342.02, y: 141.1, w: 124.97, h: 59.07  },
   { n: 3, x: 606, y: 104, w: 132.39, h: 127.65  },
   { n: 4, x: 1493, y: 256, w: 101.64, h: 151.06  },
-  { n: 5, x: 1171, y: 115, w: 72.84, h: 68.3  },
+  { n: 5, x: 1271, y: 115, w: 72.84, h: 68.3  },
   { n: 6, x: 253, y: 299, w: 103.62, h: 104.19  },
   { n: 7, x: 80, y: 393, w: 97.64, h: 97.64 },
   { n: 9, x: 1610, y: 136, w: 63.26, h: 90.08  },
@@ -70,13 +70,15 @@ export const adesivosHero: Adesivo[] = [
 
 export const PALCO_SOBRE: Palco = { largura: 1920, altura: 770 }
 
+/*
+  Só adesivos da direita: os dois brilhos que ficavam à esquerda (31 e 37)
+  saíram para a coluna de texto poder começar na mesma linha das outras seções.
+*/
 export const adesivosSobre: Adesivo[] = [
-  { n: 31, x: 130, y: 135, w: 73.04, h: 75.97, ext: 'png' },
   { n: 32, x: 1640, y: 432, w: 73.99, h: 79.45, ext: 'png' },
   { n: 34, x: 1263, y: 383, w: 272.11, h: 270.88, ext: 'png' },
   { n: 35, x: 1627, y: 63, w: 219.78, h: 291.19, ext: 'png' },
   { n: 36, x: 1382, y: 282, w: 70.95, h: 75.32, ext: 'png' },
-  { n: 37, x: 203, y: 591, w: 71.32, h: 74.73, ext: 'png' },
   { n: 38, x: 1524, y: 190, w: 71.13, h: 77.82, ext: 'png' },
   { n: 39, x: 1595, y: 599, w: 59.34, h: 66.53, ext: 'png' },
 ]

@@ -14,8 +14,8 @@ const contatos = [
     ),
   },
   {
-    rotulo: '/in/bianca-medeiros-76063028b/',
-    href: 'https://www.linkedin.com/in/bianca-medeiros-76063028b/',
+    rotulo: '/in/biancammedeiros',
+    href: 'https://www.linkedin.com/in/biancammedeiros/',
     descricao: 'Perfil no LinkedIn',
     icone: (
       <>

@@ -42,6 +42,43 @@ export const projetos: Projeto[] = [
     ladoDaImagem: 'direita',
   },
   {
+    id: 'lema',
+    categoria: 'Loja online · Moda fitness',
+    titulo: 'Lema Fitwear',
+    subtitulo: 'Catálogo com sacola que fecha no WhatsApp',
+    descricao:
+      'A marca vendia por um catálogo em slides no Canva, atualizado à mão a cada coleção. Construí uma loja que passa a sensação de e-commerce sem ser uma: a sacola monta o pedido e entrega tudo pronto no WhatsApp da loja, que é onde a dona já fechava as vendas.',
+    destaques: [
+      'Posicionamento definido junto com a cliente - novo, de qualidade e sofisticado',
+      'Fotos em formato vertical, reaproveitando o que ela já produz para o Instagram e mostrando a peça inteira',
+      'Checkout fora do site: sem gateway, sem taxa de intermediário e sem sistema para a loja manter',
+    ],
+    tags: ['E-commerce', 'Posicionamento', 'Estratégia', 'Catálogo'],
+    acao: 'Acesse a loja',
+    href: 'https://lema-beige.vercel.app/',
+    imagens: ['lema.png'],
+    moldura: 'navegador',
+    ladoDaImagem: 'esquerda',
+  },
+   {
+    id: 'maiscarga',
+    categoria: 'Aplicativo · Energia',
+    titulo: 'App - MaisCarga Mobile',
+    subtitulo: 'Banco de kWh · Identidade & landing editorial',
+    descricao:
+      'Desenvolvimento de um aplicativo móvel para gerenciamento de energia, focado na criação de um "Banco de kWh". A interface intuitiva e a experiência do usuário foram projetadas para facilitar o controle e a otimização do consumo de energia, promovendo a sustentabilidade e a economia.',
+    destaques: [
+      'Concepção e design da experiência do usuário (UX) para o Banco de kWh',
+      'Desenvolvimento da identidade visual e elementos de interface (UI)',
+    ],
+    tags: ['Aplicativo Mobile', 'Gestão de Energia', 'UX/UI Design'],
+    acao: 'Acesse o protótipo',
+    href: 'https://www.figma.com/proto/pS1Sa3w7M6EyHpwSOlbNkv/MaisCargaMobile?node-id=141-83&viewport=1393%2C113%2C0.26&t=UthV2F2XYuxNQhNZ-1&scaling=scale-down&content-scaling=fixed&starting-point-node-id=141%3A83&show-proto-sidebar=1&page-id=0%3A1',
+    imagens: ['maiscarga-app.png'],
+    moldura: 'celular',
+    ladoDaImagem: 'direita',
+  },
+  {
     id: 'bernardo',
     categoria: 'Marca pessoal · Jornalismo',
     titulo: 'Portfólio - Bernardo Mello',
@@ -54,7 +91,7 @@ export const projetos: Projeto[] = [
       'Conteúdo desacoplado do código, para o cliente publicar sem intermediário',
     ],
     tags: ['Marca pessoal', 'Front-end', 'Handoff'],
-    acao: 'Acesse o site',
+    acao: 'Acesse o portfólio',
     href: 'https://bernardoovm.github.io/portfolio/',
     imagens: ['Bernardo.png'],
     moldura: 'navegador',
@@ -115,24 +152,6 @@ export const projetos: Projeto[] = [
     imagens: ['daniella.jpg'],
     moldura: 'navegador',
     ladoDaImagem: 'direita',
-  },
-  {
-    id: 'maiscarga',
-    categoria: 'Aplicativo · Energia',
-    titulo: 'App - MaisCarga Mobile',
-    subtitulo: 'Banco de kWh · Identidade & landing editorial',
-    descricao:
-      'Desenvolvimento de um aplicativo móvel para gerenciamento de energia, focado na criação de um "Banco de kWh". A interface intuitiva e a experiência do usuário foram projetadas para facilitar o controle e a otimização do consumo de energia, promovendo a sustentabilidade e a economia.',
-    destaques: [
-      'Concepção e design da experiência do usuário (UX) para o Banco de kWh',
-      'Desenvolvimento da identidade visual e elementos de interface (UI)',
-    ],
-    tags: ['Aplicativo Mobile', 'Gestão de Energia', 'UX/UI Design'],
-    acao: 'Acesse o protótipo',
-    href: 'https://www.figma.com/proto/pS1Sa3w7M6EyHpwSOlbNkv/MaisCargaMobile?node-id=141-83&viewport=1393%2C113%2C0.26&t=UthV2F2XYuxNQhNZ-1&scaling=scale-down&content-scaling=fixed&starting-point-node-id=141%3A83&show-proto-sidebar=1&page-id=0%3A1',
-    imagens: ['maiscarga-app.png'],
-    moldura: 'celular',
-    ladoDaImagem: 'esquerda',
   },
 ]
 
