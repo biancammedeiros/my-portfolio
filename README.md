@@ -1,8 +1,6 @@
 # Portfólio - Bianca Medeiros
 
 Página completa convertida do Figma
-[Portfolio](https://www.figma.com/design/aQ1qgdiYGIFA0dReTQhV45/Portfolio?node-id=15-623)
-(frame `1920w light`, nó `15:623`).
 
 **Stack:** Vite + React 19 + TypeScript + Tailwind CSS v4.
 
@@ -143,33 +141,6 @@ para `creme` `#fafbf4` - antes tinham a mesma cor do fundo novo e desapareciam.
 
 Fontes: Londrina Solid, Montserrat, Lora e Inter - auto-hospedadas via
 Fontsource, sem requisição ao Google Fonts.
-
-## ⚠️ O que ainda é placeholder
-
-Só os **6 prints de projeto** em `public/imagens/` (retângulos escuros com o
-nome do arquivo). Exporte do Figma em PNG 2x e substitua mantendo os nomes:
-
-| Arquivo | Layer no Figma |
-| --- | --- |
-| `geoped-home.png` | `Geoped Home` |
-| `geoped-sobre-nos.png` | `Geoped Sobre Nós` |
-| `artesanato-potiguar-home.png` | `Artesanato Potiguar Home` |
-| `daniella-falbo.png` | `Landing Page Daniella Falbo` |
-| `detran-portal.png` | `image 22` (dentro do card do DETRAN) |
-| `maiscarga-app.png` | `image` (dentro do card do MaisCarga) |
-
-Adesivos, logos e a foto do hero já são os arquivos reais.
-
-### Sobre os exports que chegaram
-
-Vieram em **1x**, no tamanho de exibição. Em tela retina isso fica levemente
-macio - a foto do hero (354×473) é onde mais aparece. Se quiser nitidez, é só
-reexportar em 2x e substituir mantendo os nomes; nada no código muda.
-
-Os logos foram **recortados na sobra transparente** que vinha no export (o
-`Group 30` exporta cada logo dentro da caixa que ele ocupa no layout, não
-colado no desenho). Sem isso as alturas iam de 44 a 177px e a faixa ficava
-visualmente desalinhada.
 
 ## Publicando
 
